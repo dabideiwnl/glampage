@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Customize Your Nails - Sip & Glam</title>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&family=Playfair+Display:wght@700&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    /* Custom styles for customize page */
+
+    body {
+      background: linear-gradient(135deg, #fff0f6 60%, #f5d0e6 100%);
+      font-family: 'Montserrat', sans-serif;
+      color: #3a3a3a;
+      min-height: 100vh;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 2rem;
+    }
+
+    h1 {
+      font-family: 'Playfair Display', serif;
+      color: #d63384;
+      margin-bottom: 1rem;
+      font-size: 2.75rem;
+      text-align: center;
+    }
+
+    .customize-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 3rem;
+      max-width: 1200px;
+      width: 100%;
+    }
+
+    /* Hand container */
+    .hand-container {
+      position: relative;
+      width: 300px;
+      height: 400px;
+      background: url('assets/hand.png') center bottom no-repeat;
+      background-size: contain;
+      flex-shrink: 0;
+    }
+
+    /* Nail overlays */
+    .nail {
+      position: absolute;
+      background-color: transparent;
+      border-radius: 50% / 40%;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      box-shadow: 0 0 8px rgba(214, 51, 132, 0.3);
+    }
+
+    /* Positions of nails on the hand image */
+    /* Adjust these positions to match your hand image */
+
+    /* Thumb */
+    .nail.thumb {
+      width: 40px;
+      height: 50px;
+      top: 280px;
+      left: 30px;
+      transform: rotate(-20deg);
+    }
+
+    /* Index */
+    .nail.index {
+      width: 45px;
+      height: 60px;
+      top: 230px;
+      left: 90px;
+      transform: rotate(-5deg);
+    }
+
+    /* Middle */
+    .nail.middle {
+      width: 50px;
+      height: 65px;
+      top: 210px;
+      left: 150px;
+    }
+
+    /* Ring */
+    .nail.ring {
+      width: 45px;
+      height: 60px;
+      top: 230px;
+      left: 210px;
+      transform: rotate(5deg);
+    }
+
+    /* Pinky */
+    .nail.pinky {
+      width: 35px;
+      height: 50px;
+      top: 270px;
+      left: 260px;
+      transform: rotate(15deg);
+    }
+
+    /* Options panel */
+    .options-panel {
+      flex: 1;
+      max-width: 500px;
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(10px);
+      border-radius: 1.5rem;
+      padding: 2rem;
+      box-shadow: 0 8px 24px rgba(214, 51, 132, 0.1);
+    }
+
+    .option-group {
+      margin-bottom: 2rem;
+    }
+
+    .option-group h3 {
+      font-family: 'Playfair Display', serif;
+      color: #a12a6a;
+      margin-bottom: 1rem;
+      font-size: 1.5rem;
+      border-bottom: 2px solid #d63384;
+      padding-bottom: 0.25rem;
+    }
+
+    .colors {
+      display: flex;
+      gap: 3rem;
+    }
+
+    .color-swatch {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      border: 2px solid transparent;
+      cursor: pointer;
+      box-shadow: 0 0 8px rgba(214, 51, 132, 0.2);
+      transition: border-color 0.3s ease;
+    }
+
+    .color-swatch.selected {
+      border-color: #d63384;
+      box-shadow: 0 0 12px #d63384;
+    }
+
+    /* Shapes */
+    .shapes {
+      display: flex;
+      gap: 1rem;
+    }
+
+    .shape-btn {
+      padding: 0.5rem 1rem;
+      border: 2px solid #d63384;
+      border-radius: 2rem;
+      background: transparent;
+      color: #d63384;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.3s ease, color 0.3s ease;
+    }
+
+    .shape-btn.selected,
+    .shape-btn:hover {
+      background: #d63384;
+      color: #fff;
+    }
+
+    /* Designs */
+    .designs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+    }
+
+    .design-thumb {
+      width: 60px;
+      height: 60px;
+      border-radius: 1rem;
+      border: 2px solid transparent;
+      cursor: pointer;
+      object-fit: cover;
+      box-shadow: 0 0 8px rgba(214, 51, 132, 0.2);
+      transition: border-color 0.3s ease;
+    }
+
+    .design-thumb.selected {
+      border-color: #d63384;
+      box-shadow: 0 0 12px #d63384;
+    }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      .customize-container {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .hand-container {
+        margin-bottom: 2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1>Customize Your Nails</h1>
+
+  <div class="customize-container">
+    <div class="hand-container" aria-label="Hand with nails to customize" role="img" tabindex="0">
+      <div class="nail thumb" data-finger="thumb" tabindex="0" aria-label="Thumb nail"></div>
+      <div class="nail index" data-finger="index" tabindex="0" aria-label="Index finger nail"></div>
+      <div class="nail middle" data-finger="middle" tabindex="0" aria-label="Middle finger nail"></div>
+      <div class="nail ring" data-finger="ring" tabindex="0" aria-label="Ring finger nail"></div>
+      <div class="nail pinky" data-finger="pinky" tabindex="0" aria-label="Pinky finger nail"></div>
+    </div>
+
+    <div class="options-panel" aria-live="polite">
+      <div class="option-group">
+        <h3>Choose Color</h3>
+        <div class="colors" role="list">
+          <div class="color-swatch" tabindex="0" role="listitem" aria-label="Red" style="background-color: #e63946;" data-color="#e63946"></div>
+          <div class="color-swatch" tabindex="0" role="listitem" aria-label="Pink" style="background-color: #d63384;" data-color="#d63384"></div>
+          <div class="color-swatch" tabindex="0" role="listitem" aria-label="Lavender" style="background-color: #9d4edd;" data-color="#9d4edd"></div>
+          <div class="color-swatch" tabindex="0" role="listitem" aria-label="Nude" style="background-color: #f1e3dd;" data-color="#f1e3dd"></div>
+          <div class="color-swatch" tabindex="0" role="listitem" aria-label="Mint" style="background-color: #2a9d8f;" data-color="#2a9d8f"></div>
+        </div>
+      </div>
+
+      <div class="option-group">
+        <h3>Choose Shape</h3>
+        <div class="shapes" role="list">
+          <button class="shape-btn selected" data-shape="round" role="listitem" aria-pressed="true">Round</button>
+          <button class="shape-btn" data-shape="square" role="listitem" aria-pressed="false">Square</button>
+          <button class="shape-btn" data-shape="oval" role="listitem" aria-pressed="false">Oval</button>
+          <button class="shape-btn" data-shape="almond" role="listitem" aria-pressed="false">Almond</button>
+          <button class="shape-btn" data-shape="stiletto" role="listitem" aria-pressed="false">Stiletto</button>
+        </div>
+      </div>
+
+      <div class="option-group">
+        <h3>Choose Design</h3>
+        <div class="designs" role="list">
+          <img src="images/options/floral.jfif" alt="Floral Design" class="design-thumb selected" data-design="design1" role="listitem" tabindex="0" />
+          <img src="images/options/glitter.jfif" alt="Glitter Design" class="design-thumb" data-design="design2" role="listitem" tabindex="0" />
+          <img src="images/options/geometric.jfif" alt="Geometric Design" class="design-thumb" data-design="design3" role="listitem" tabindex="0" />
+          <img src="images/options/marble.jfif" alt="Marble Design" class="design-thumb" data-design="design4" role="listitem" tabindex="0" />
+          <img src="images/options/minimalistic.jfif" alt="Minimalist Design" class="design-thumb" data-design="design5" role="listitem" tabindex="0" />
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="option-group finalize-group">
+    <button id="like-btn" aria-pressed="false" aria-label="Like this design" class="like-btn">
+      ❤️ Like
+    </button>
+    <button id="submit-btn" class="submit-btn" type="button">
+      Submit
+    </button>
+    <p id="confirmation-msg" role="alert" aria-live="assertive" class="confirmation-msg" hidden></p>
+  </div>
+  
+
+  <script>
+    // JavaScript to handle nail customization
+
+    const nails = document.querySelectorAll('.nail');
+    const colorSwatches = document.querySelectorAll('.color-swatch');
+    const shapeButtons = document.querySelectorAll('.shape-btn');
+    const designThumbs = document.querySelectorAll('.design-thumb');
+
+    // Default selections
+    let selectedColor = '#d63384';
+    let selectedShape = 'round';
+    let selectedDesign = 'design1';
+
+    // Update nails function
+    function updateNails() {
+      nails.forEach(nail => {
+        // Color
+        nail.style.backgroundColor = selectedColor;
+
+        // Shape
+        switch (selectedShape) {
+          case 'round':
+            nail.style.borderRadius = '50% / 40%';
+            break;
+          case 'square':
+            nail.style.borderRadius = '8px';
+            break;
+          case 'oval':
+            nail.style.borderRadius = '40% / 50%';
+            break;
+          case 'almond':
+            nail.style.borderRadius = '50% / 70%';
+            break;
+          case 'stiletto':
+            nail.style.borderRadius = '50% / 20%';
+            break;
+          default:
+            nail.style.borderRadius = '50% / 40%';
+        }
+
+        // Design overlay (optional)
+        // For simplicity, we simulate design by adding a background image overlay
+        nail.style.backgroundImage = `url('assets/designs/${selectedDesign}.png')`;
+        nail.style.backgroundSize = 'cover';
+        nail.style.backgroundPosition = 'center';
+      });
+    }
+
+    // Initialize nails
+    updateNails();
+
+    // Color selection
+    colorSwatches.forEach(swatch => {
+      swatch.addEventListener('click', () => {
+        colorSwatches.forEach(s => s.classList.remove('selected'));
+        swatch.classList.add('selected');
+        selectedColor = swatch.getAttribute('data-color');
+        updateNails();
+      });
+      swatch.addEventListener('keydown', e => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          swatch.click();
+        }
+      });
+    });
+
+    // Shape selection
+    shapeButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        shapeButtons.forEach(b => {
+          b.classList.remove('selected');
+          b.setAttribute('aria-pressed', 'false');
+        });
+        btn.classList.add('selected');
+        btn.setAttribute('aria-pressed', 'true');
+        selectedShape = btn.getAttribute('data-shape');
+        updateNails();
+      });
+      btn.addEventListener('keydown', e => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          btn.click();
+        }
+      });
+    });
+
+    // Design selection
+    designThumbs.forEach(thumb => {
+      thumb.addEventListener('click', () => {
+        designThumbs.forEach(t => t.classList.remove('selected'));
+        thumb.classList.add('selected');
+        selectedDesign = thumb.getAttribute('data-design');
+        updateNails();
+      });
+      thumb.addEventListener('keydown', e => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          thumb.click();
+        }
+      });
+    });
+    const likeBtn = document.getElementById('like-btn');
+const submitBtn = document.getElementById('submit-btn');
+const confirmationMsg = document.getElementById('confirmation-msg');
+
+likeBtn.addEventListener('click', () => {
+  const pressed = likeBtn.getAttribute('aria-pressed') === 'true';
+  likeBtn.setAttribute('aria-pressed', String(!pressed));
+  // Optionally toggle heart icon or color handled by CSS
+});
+
+submitBtn.addEventListener('click', () => {
+  // Collect current selections
+  const selections = {
+    color: selectedColor,
+    shape: selectedShape,
+    design: selectedDesign,
+    liked: likeBtn.getAttribute('aria-pressed') === 'true',
+  };
+
+  // For demo, just show a confirmation message
+  confirmationMsg.textContent = `Thank you for submitting your design! 
+    Color: ${selections.color}, Shape: ${selections.shape}, 
+    Design: ${selections.design}, Liked: ${selections.liked ? 'Yes' : 'No'}.`;
+  confirmationMsg.hidden = false;
+
+  // Optionally disable buttons or reset form here
+  submitBtn.disabled = true;
+  likeBtn.disabled = true;
+});
+
+  </script>
+</body>
+</html>
